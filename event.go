@@ -18,6 +18,15 @@ var Event struct {
 		}
 		Buttons Buttons
 	}
+
+	Key struct {
+		Pressed   bool
+		Name      string
+		Modifiers Modifiers
+	}
+
+	WindowWidth  float64
+	WindowHeight float64
 }
 
 // Buttons is a set of mouse buttons.
@@ -33,4 +42,15 @@ const (
 	ButtonLeft Buttons = 1 << iota
 	ButtonRight
 	ButtonMiddle
+)
+
+// Modifiers is a set of key modifiers
+type Modifiers uint32
+
+const (
+	ModCtrl Modifiers = 1 << iota
+	ModCommand
+	ModShift
+	ModAlt
+	ModSuper
 )

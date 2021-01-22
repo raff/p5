@@ -246,6 +246,10 @@ func (p *Proc) run() error {
 				cnt++
 			}
 
+			Event.Key.Name = e.Name
+			Event.Key.Modifiers = Modifiers(e.Modifiers)
+			Event.Key.Pressed = e.State == key.Press
+
 		case pointer.Event:
 			switch e.Type {
 			case pointer.Press:
@@ -260,6 +264,9 @@ func (p *Proc) run() error {
 			Event.Mouse.Buttons = Buttons(e.Buttons)
 
 		case system.FrameEvent:
+			Event.WindowWidth = p.cfg.s2uX(float64(e.Size.X))
+			Event.WindowHeight = p.cfg.s2uX(float64(e.Size.Y))
+
 			if p.loop() {
 				p.draw(e)
 			}

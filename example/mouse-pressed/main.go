@@ -5,6 +5,7 @@
 package main
 
 import (
+	"fmt"
 	"image/color"
 
 	"github.com/go-p5/p5"
@@ -26,6 +27,10 @@ func draw() {
 			p5.Stroke(color.Black)
 			p5.Fill(color.RGBA{R: 255, A: 255})
 		}
+
+	case p5.Event.Key.Pressed:
+		fmt.Println("pressed", p5.Event.Key.Name)
+
 	default:
 		p5.Stroke(nil)
 		p5.Fill(color.Transparent)
