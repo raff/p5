@@ -4,6 +4,8 @@
 
 package p5
 
+import "time"
+
 // Event is the current event pushed from the system.
 var Event struct {
 	Mouse struct {
@@ -25,8 +27,11 @@ var Event struct {
 		Modifiers Modifiers
 	}
 
-	WindowWidth  float64
-	WindowHeight float64
+	Width  float64
+	Height float64
+
+	DeltaTime  time.Duration
+	FrameCount int
 }
 
 // Buttons is a set of mouse buttons.

@@ -227,6 +227,8 @@ func (p *Proc) run() error {
 
 	var cnt int
 
+	prev := time.Now()
+
 	for {
 		e := <-w.Events()
 		switch e := e.(type) {
@@ -264,10 +266,12 @@ func (p *Proc) run() error {
 			Event.Mouse.Buttons = Buttons(e.Buttons)
 
 		case system.FrameEvent:
-			Event.WindowWidth = p.cfg.s2uX(float64(e.Size.X))
-			Event.WindowHeight = p.cfg.s2uX(float64(e.Size.Y))
+			Event.Width = p.cfg.s2uX(float64(e.Size.X))
+			Event.Height = p.cfg.s2uX(float64(e.Size.Y))
 
 			if p.loop() {
+				Event.DeltaTime, prev = e.Now.Sub(prev), e.Now
+				Event.FrameCount++
 				p.draw(e)
 			}
 		}
