@@ -162,6 +162,8 @@ var (
 	foodColor  = color.RGBA{R: 255, A: 255}
 	deadColor  = color.RGBA{R: 255, G: 165}
 	snakeColor = color.RGBA{G: 255}
+
+	prevKey = ""
 )
 
 func makefood() {
@@ -202,30 +204,64 @@ func setup() {
 
 func draw() {
 	if p5.Event.Key.Pressed {
-		switch p5.Event.Key.Name {
-		case "↑":
-			dir = Up
+		key := p5.Event.Key.Name
+		if key != prevKey {
+			prevKey = key
 
-		case "↓":
-			dir = Down
+			switch p5.Event.Key.Name {
+			case "↑":
+				dir = Up
 
-		case "←":
-			dir = Left
+			case "↓":
+				dir = Down
 
-		case "→":
-			dir = Right
+			case "←":
+				dir = Left
 
-		case "-", "_":
-			if speed > 1 {
-				speed--
+			case "→":
+				dir = Right
+
+			case "-", "_":
+				if speed > 1 {
+					speed--
+				}
+				fmt.Println("speed", speed)
+
+			case "+", "=":
+				speed++
+				fmt.Println("speed", speed)
+
+			case "F":
+				food = append(food, Point{})
+				fmt.Println("food", len(food))
+
+			case "Q", "[", "{": // rotate left
+				switch dir {
+				case Up:
+					dir = Left
+				case Left:
+					dir = Down
+				case Down:
+					dir = Right
+				case Right:
+					dir = Up
+				}
+
+			case "W", "]", "}": // rotate right
+				switch dir {
+				case Up:
+					dir = Right
+				case Right:
+					dir = Down
+				case Down:
+					dir = Left
+				case Left:
+					dir = Up
+				}
 			}
-
-		case "+", "=":
-			speed++
-
-		case "F":
-			food = append(food, Point{})
 		}
+	} else {
+		prevKey = ""
 	}
 
 	var head Rect
