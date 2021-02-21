@@ -30,8 +30,7 @@ var Event struct {
 	Width  float64
 	Height float64
 
-	DeltaTime  time.Duration
-	FrameCount int
+	DeltaTime time.Duration
 }
 
 // Buttons is a set of mouse buttons.

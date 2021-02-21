@@ -92,6 +92,9 @@ func (ball *Ball) collide() {
 }
 
 func (ball *Ball) move() {
+	width := p5.Event.Width
+	height := p5.Event.Height
+
 	ball.vy += gravity
 	ball.x += ball.vx
 	ball.y += ball.vy
